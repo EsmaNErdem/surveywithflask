@@ -19,7 +19,7 @@ def choose_survey():
 @app.route("/", methods=["POST"])
 def select_survey():
     """Selects a survey"""
-    # this part request.form
+    # this part request.form beacuse methods post
     survey_id = request.form['survey_code']
     survey = surveys[survey_id]
     session["current_survey"] = survey_id
@@ -30,7 +30,8 @@ def start_survey():
     """Starts survey"""
 
     session["responses"] = []
-    return redirect("/questions/0")
+    responses = session["responses"]
+    return redirect(f"/questions/{len(responses)}")
 
 @app.route("/questions/<int:qid>")
 def show_questions(qid):
