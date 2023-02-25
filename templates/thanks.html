@@ -4,5 +4,11 @@
 
 {% block content %}
 <h2>Thank you for completeing {{survey.title}}</h2>
+<ul>
+    {% for response in responses %}
+    <li>{{response['question']}} : {{response['answer']}}
+     {{response.get('text')}}</li>
+    {%endfor%}
+</ul>
 
 {% endblock %}
