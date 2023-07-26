@@ -12,10 +12,13 @@ current_survey = "current_survey"
 @app.before_request
 def print_cookies():
     print("****************")
-    responses = session["responses"]
-    for response in responses:
+    responses = session.get("responses", [])
+    if responses:
+        for response in responses:
 
-        print(response['question'], response['answer'], response.get('text'))
+            print(response['question'], response['answer'], response.get('text'))
+    else:
+        print("No cookie")
     print("*****************")
 
 
@@ -25,6 +28,7 @@ def choose_survey():
 
     return render_template("select_survey.html", surveys = surveys)
 
+# on survey_start view page if we referesh the page, it alerts if we want to resend the form because we render the page on a post method to show a better way, redirecting pages after view function takes care of incoming data with HTTP request
 @app.route("/", methods=["POST"])
 def select_survey():
     """Selects a survey"""
